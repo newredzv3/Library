@@ -1395,7 +1395,7 @@ function redzlib:SetTheme(NewTheme)
 	end)
 end
 
-function vu32:SetUIScale(NewScale)
+function redzlib:SetUIScale(NewScale)
 	NewScale = math.clamp(NewScale, 0.6, 1.6)
 	if UIScale then
 		UIScale.Scale = NewScale
