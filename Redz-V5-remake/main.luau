@@ -1395,15 +1395,9 @@ function redzlib:SetTheme(NewTheme)
 	end)
 end
 
-function redzlib:SetUIScale(NewScale)
-	NewScale = math.clamp(NewScale, 0.6, 1.6)
-	if UIScale then
-		UIScale.Scale = NewScale
-	end
-	if ScreenGui and ScreenGui:FindFirstChild("Scale") then
-		ScreenGui.Scale.Scale = NewScale
-	end
-	Connection:FireConnection("ScaleChanged", NewScale)
+function redzlib:SetScale(NewScale)
+	NewScale = ViewportSize.Y / math.clamp(NewScale, 300, 2000)
+	UIScale, ScreenGui.Scale.Scale = NewScale, NewScale
 end
 
 function redzlib:MakeWindow(Configs)
@@ -1478,7 +1472,7 @@ function redzlib:MakeWindow(Configs)
 			TextXAlignment = "Left",
 			TextYAlignment = "Bottom",
 			TextSize = 8,
-			Font = Enum.Font.BuilderSans,
+			Font = Enum.Font.Gotham,
 			Name = "SubTitle"
 		}), "DarkText")
 	}), "Text")
@@ -2404,128 +2398,140 @@ function redzlib:MakeWindow(Configs)
 			end
 			return Dropdown
 		end
-		
-function Tab:AddSlider(Configs)
-	local SName = Configs[1] or Configs.Name or Configs.Title or "Slider!"
-	local SDesc = Configs.Desc or Configs.Description or ""
-	local Min = Configs[2] or Configs.MinValue or Configs.Min or 10
-	local Max = Configs[3] or Configs.MaxValue or Configs.Max or 100
-	local Increase = Configs[4] or Configs.Increase or 1
-	local Callback = Funcs:GetCallback(Configs, 6)
-	local Flag = Configs[7] or Configs.Flag or false
-	local Default = Configs[5] or Configs.Default or 25
-	if CheckFlag(Flag) then Default = GetFlag(Flag) end
-	Min, Max = Min / Increase, Max / Increase
-	
-	local Button, LabelFunc = ButtonFrame(Container, SName, SDesc, UDim2.new(1, -180))
-	
-	local SliderHolder = Create("TextButton", Button, {
-		Size = UDim2.new(0.45, 0, 1),
-		Position = UDim2.new(1),
-		AnchorPoint = Vector2.new(1, 0),
-		AutoButtonColor = false,
-		Text = "",
-		BackgroundTransparency = 1
-	})
-	
-	local SliderBar = InsertTheme(Create("Frame", SliderHolder, {
-		BackgroundColor3 = Theme["Color Stroke"],
-		Size = UDim2.new(1, -20, 0, 6),
-		Position = UDim2.new(0.5, 0, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5)
-	}), "Stroke")Make("Corner", SliderBar)
-	
-	local Indicator = InsertTheme(Create("Frame", SliderBar, {
-		BackgroundColor3 = Theme["Color Theme"],
-		Size = UDim2.fromScale(0.3, 1),
-		BorderSizePixel = 0
-	}), "Theme")Make("Corner", Indicator)
-	
-	local SliderIcon = Create("Frame", SliderBar, {
-		Size = UDim2.new(0, 6, 0, 12),
-		BackgroundColor3 = Color3.fromRGB(220, 220, 220),
-		Position = UDim2.fromScale(0.3, 0.5),
-		AnchorPoint = Vector2.new(0.5, 0.5),
-		BackgroundTransparency = 0.2
-	})Make("Corner", SliderIcon)
-	
-	local LabelVal = InsertTheme(Create("TextLabel", SliderHolder, {
-		Size = UDim2.new(0, 14, 0, 14),
-		AnchorPoint = Vector2.new(1, 0.5),
-		Position = UDim2.new(0, 0, 0.5),
-		BackgroundTransparency = 1,
-		TextColor3 = Theme["Color Text"],
-		Font = Enum.Font.FredokaOne,
-		TextSize = 12
-	}), "Text")
-	
-	local UIScale = Create("UIScale", LabelVal)
-	local BaseMousePos = Create("Frame", SliderBar, { Position = UDim2.new(0, 0, 0.5, 0), Visible = false })
-	
-	local function UpdateLabel(NewValue)
-		local Number = tonumber(NewValue * Increase)
-		Number = math.floor(Number * 100) / 100
-		Default, LabelVal.Text = Number, tostring(Number)
-		Funcs:FireCallback(Callback, Default)
-	end
-	
-	local function ControlPos()
-		local MousePos = Player:GetMouse()
-		local APos = MousePos.X - BaseMousePos.AbsolutePosition.X
-		local ConfigureDpiPos = APos / SliderBar.AbsoluteSize.X
-		SliderIcon.Position = UDim2.new(math.clamp(ConfigureDpiPos, 0, 1), 0, 0.5, 0)
-	end
-	
-	local function UpdateValues()
-		Indicator.Size = UDim2.new(SliderIcon.Position.X.Scale, 0, 1, 0)
-		local SliderPos = SliderIcon.Position.X.Scale
-		local NewValue = math.floor(((SliderPos * Max) / Max) * (Max - Min) + Min)
-		UpdateLabel(NewValue)
-	end
-	
-	SliderHolder.MouseButton1Down:Connect(function()
-		while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do task.wait()
-			ControlPos()
+		function Tab:AddSlider(Configs)
+			local SName = Configs[1] or Configs.Name or Configs.Title or "Slider!"
+			local SDesc = Configs.Desc or Configs.Description or ""
+			local Min = Configs[2] or Configs.MinValue or Configs.Min or 10
+			local Max = Configs[3] or Configs.MaxValue or Configs.Max or 100
+			local Increase = Configs[4] or Configs.Increase or 1
+			local Callback = Funcs:GetCallback(Configs, 6)
+			local Flag = Configs[7] or Configs.Flag or false
+			local Default = Configs[5] or Configs.Default or 25
+			if CheckFlag(Flag) then Default = GetFlag(Flag) end
+			Min, Max = Min / Increase, Max / Increase
+			
+			local Button, LabelFunc = ButtonFrame(Container, SName, SDesc, UDim2.new(1, -180))
+			
+			local SliderHolder = Create("TextButton", Button, {
+				Size = UDim2.new(0.45, 0, 1),
+				Position = UDim2.new(1),
+				AnchorPoint = Vector2.new(1, 0),
+				AutoButtonColor = false,
+				Text = "",
+				BackgroundTransparency = 1
+			})
+			
+			local SliderBar = InsertTheme(Create("Frame", SliderHolder, {
+				BackgroundColor3 = Theme["Color Stroke"],
+				Size = UDim2.new(1, -20, 0, 6),
+				Position = UDim2.new(0.5, 0, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5)
+			}), "Stroke")Make("Corner", SliderBar)
+			
+			local Indicator = InsertTheme(Create("Frame", SliderBar, {
+				BackgroundColor3 = Theme["Color Theme"],
+				Size = UDim2.fromScale(0.3, 1),
+				BorderSizePixel = 0
+			}), "Theme")Make("Corner", Indicator)
+			
+			local SliderIcon = Create("Frame", SliderBar, {
+				Size = UDim2.new(0, 6, 0, 12),
+				BackgroundColor3 = Color3.fromRGB(220, 220, 220),
+				Position = UDim2.fromScale(0.3, 0.5),
+				AnchorPoint = Vector2.new(0.5, 0.5),
+				BackgroundTransparency = 0.2
+			})Make("Corner", SliderIcon)
+			
+			local LabelVal = InsertTheme(Create("TextLabel", SliderHolder, {
+				Size = UDim2.new(0, 14, 0, 14),
+				AnchorPoint = Vector2.new(1, 0.5),
+				Position = UDim2.new(0, 0, 0.5),
+				BackgroundTransparency = 1,
+				TextColor3 = Theme["Color Text"],
+				Font = Enum.Font.FredokaOne,
+				TextSize = 12
+			}), "Text")
+			
+			local UIScale = Create("UIScale", LabelVal)
+			
+			local BaseMousePos = Create("Frame", SliderBar, {
+				Position = UDim2.new(0, 0, 0.5, 0),
+				Visible = false
+			})
+			
+			local function UpdateLabel(NewValue)
+				local Number = tonumber(NewValue * Increase)
+				Number = math.floor(Number * 100) / 100
+				
+				Default, LabelVal.Text = Number, tostring(Number)
+				Funcs:FireCallback(Callback, Default)
+			end
+			
+			local function ControlPos()
+				local MousePos = Player:GetMouse()
+				local APos = MousePos.X - BaseMousePos.AbsolutePosition.X
+				local ConfigureDpiPos = APos / SliderBar.AbsoluteSize.X
+				
+				SliderIcon.Position = UDim2.new(math.clamp(ConfigureDpiPos, 0, 1), 0, 0.5, 0)
+			end
+			
+			local function UpdateValues()
+				Indicator.Size = UDim2.new(SliderIcon.Position.X.Scale, 0, 1, 0)
+				local SliderPos = SliderIcon.Position.X.Scale
+				local NewValue = math.floor(((SliderPos * Max) / Max) * (Max - Min) + Min)
+				UpdateLabel(NewValue)
+			end
+			
+			SliderHolder.MouseButton1Down:Connect(function()
+				CreateTween({SliderIcon, "Transparency", 0, 0.3})
+				Container.ScrollingEnabled = false
+				while UserInputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) do task.wait()
+					ControlPos()
+				end
+				CreateTween({SliderIcon, "Transparency", 0.2, 0.3})
+				Container.ScrollingEnabled = true
+				SetFlag(Flag, Default)
+			end)
+			
+			LabelVal:GetPropertyChangedSignal("Text"):Connect(function()
+				UIScale.Scale = 0.3
+				CreateTween({UIScale, "Scale", 1.2, 0.1})
+				CreateTween({LabelVal, "Rotation", math.random(-1, 1) * 5, 0.15, true})
+				CreateTween({UIScale, "Scale", 1, 0.2})
+				CreateTween({LabelVal, "Rotation", 0, 0.1})
+			end)
+			
+			function SetSlider(NewValue)
+				if type(NewValue) ~= "number" then return end
+				
+				local Min, Max = Min * Increase, Max * Increase
+				
+				local SliderPos = (NewValue - Min) / (Max - Min)
+				
+				SetFlag(Flag, NewValue)
+				CreateTween({ SliderIcon, "Position", UDim2.fromScale(math.clamp(SliderPos, 0, 1), 0.5), 0.3, true })
+			end;SetSlider(Default)
+			
+			SliderIcon:GetPropertyChangedSignal("Position"):Connect(UpdateValues)UpdateValues()
+			
+			local Slider = {}
+			function Slider:Set(NewVal1, NewVal2)
+				if NewVal1 and NewVal2 then
+					LabelFunc:SetTitle(NewVal1)
+					LabelFunc:SetDesc(NewVal2)
+				elseif type(NewVal1) == "string" then
+					LabelFunc:SetTitle(NewVal1)
+				elseif type(NewVal1) == "function" then
+					Callback = NewVal1
+				elseif type(NewVal1) == "number" then
+					SetSlider(NewVal1)
+				end
+			end
+			function Slider:Callback(...) Funcs:InsertCallback(Callback, ...)(tonumber(Default)) end
+			function Slider:Visible(...) Funcs:ToggleVisible(Button, ...) end
+			function Slider:Destroy() Button:Destroy() end
+			return Slider
 		end
-		UpdateValues()
-	end)
-	
-	LabelVal:GetPropertyChangedSignal("Text"):Connect(function()
-		UIScale.Scale = 0.3
-		CreateTween({UIScale, "Scale", 1.2, 0.1})
-		CreateTween({LabelVal, "Rotation", math.random(-1, 1) * 5, 0.15, true})
-		CreateTween({UIScale, "Scale", 1, 0.2})
-		CreateTween({LabelVal, "Rotation", 0, 0.1})
-	end)
-	
-	function SetSlider(NewValue)
-		if type(NewValue) ~= "number" then return end
-		local Min, Max = Min * Increase, Max * Increase
-		local SliderPos = (NewValue - Min) / (Max - Min)
-		CreateTween({ SliderIcon, "Position", UDim2.fromScale(math.clamp(SliderPos, 0, 1), 0.5), 0.3, true })
-		UpdateValues()
-	end; SetSlider(Default)
-	
-	SliderIcon:GetPropertyChangedSignal("Position"):Connect(UpdateValues) UpdateValues()
-	
-	local Slider = {}
-	function Slider:Set(NewVal1, NewVal2)
-		if NewVal1 and NewVal2 then
-			LabelFunc:SetTitle(NewVal1)
-			LabelFunc:SetDesc(NewVal2)
-		elseif type(NewVal1) == "string" then
-			LabelFunc:SetTitle(NewVal1)
-		elseif type(NewVal1) == "function" then
-			Callback = NewVal1
-		elseif type(NewVal1) == "number" then
-			SetSlider(NewVal1)
-		end
-	end
-	function Slider:Callback(...) Funcs:InsertCallback(Callback, ...)(tonumber(Default)) end
-	function Slider:Visible(...) Funcs:ToggleVisible(Button, ...) end
-	function Slider:Destroy() Button:Destroy() end
-	return Slider
-end
 		function Tab:AddTextBox(Configs)
 			local TName = Configs[1] or Configs.Name or Configs.Title or "Text Box"
 			local TDesc = Configs.Desc or Configs.Description or ""
