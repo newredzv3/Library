@@ -23,6 +23,8 @@
 
 
 
+
+
 local a=cloneref or(function(...)return...end)
 
 local b=setmetatable({},{
@@ -1983,7 +1985,11 @@ aK.Value=aO
 local aQ=UDim2.fromScale(aP,0.5)
 local aR=UDim2.fromScale(aP,1)
 
-aI.Text = string.format("%.2f", aO)  
+  if aO == math.floor(aO) then
+    aI.Text = tostring(aO)  
+else
+    aI.Text = string.format("%.1f", aO)  
+end
 
 if self.Selected then
 F(aH,"Position",aQ,0.3):Play()
