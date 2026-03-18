@@ -1,8 +1,6 @@
 
 
-local aN = function(
-    aN)
-      -- ← LINHA DO BUG
+
 
 
 
