@@ -3331,8 +3331,7 @@ Elements={
 Corner=UDim.new(0,9),
 Gradient={
 Rotation=45,
-ThemeTag={
-Color="Colors.Background"
+Color=ColorSequence.new(Color3.fromRGB(0,0,0))
 }
 }
 }
