@@ -56,9 +56,9 @@ local r={
 Darker={
 Colors={
 Background=ColorSequence.new{
-ColorSequenceKeypoint.new(0.00,Color3.fromRGB(25,25,25)),
+ColorSequenceKeypoint.new(0.00,Color3.fromRGB(0,0,0)),
 ColorSequenceKeypoint.new(0.50,Color3.fromRGB(32.5,32.5,32.5)),
-ColorSequenceKeypoint.new(1.00,Color3.fromRGB(25,25,25))
+ColorSequenceKeypoint.new(1.00,Color3.fromRGB(0,0,0))
 },
 Primary=Color3.fromRGB(88,101,242),
 OnPrimary=Color3.fromRGB(61,67,135),
@@ -3331,7 +3331,8 @@ Elements={
 Corner=UDim.new(0,9),
 Gradient={
 Rotation=45,
-Color=ColorSequence.new(Color3.fromRGB(0,0,0))
+ThemeTag={
+Color="Colors.Background"
 }
 }
 }
