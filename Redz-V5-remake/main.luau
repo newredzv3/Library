@@ -126,7 +126,7 @@ end
 local s={
 Information={
 Version="v2.0.1",
-GitHubOwner="tlredz"
+GitHubOwner="newredzv3"
 },
 Default={
 Theme="Darker",
@@ -3782,7 +3782,7 @@ return aj
 end
 
 local ak=`https://raw.githubusercontent.com/{self.Information.GitHubOwner}`
-local al=`{ak}/Library/refs/heads/main/redz-V5-remake/Utils/Icons.lua`
+local al=`{ak}/Library/refs/heads/main/Redz-V5-remake/Utils/Icons.lua`
 local am local an=function()
 
 
