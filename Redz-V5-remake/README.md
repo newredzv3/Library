@@ -14,14 +14,14 @@
 ## 🚀 Getting Starte
 To load **Wand UI**, simply run:
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/tlredz/Library/refs/heads/main/redz-V5-remake/main.luau"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
 ```
 
 ### Creating a Window
 ```lua
 local Window = Library:MakeWindow({
   Title = "Nice Hub : Cool Game",
-  SubTitle = "dev by real_redz",
+  SubTitle = "by plock4444",
   ScriptFolder = "redz-library-V5"
 })
 ```
@@ -244,8 +244,8 @@ Tab:AddParagraph("Paragraph", "This is a Paragraph\nSecond Line")
 #### Discord Invite
 ```lua
 MainTab:AddDiscordInvite({
-	Title = "redz Hub | Community",
-	Description = "A community for redz Hub Users -- official scripts, updates, and suport in one place.",
+	Title = "Desplock Hub | Community",
+	Description = "Your Description",
 	Banner = "rbxassetid://17382040552", -- You can put an RGB Color: Color3.fromRGB(233, 37, 69)
 	Logo = "rbxassetid://17382040552",
 	Invite = "https://discord.gg/redz-hub",
