@@ -248,7 +248,7 @@ MainTab:AddDiscordInvite({
 	Description = "Your Description",
 	Banner = "rbxassetid://17382040552", -- You can put an RGB Color: Color3.fromRGB(233, 37, 69)
 	Logo = "rbxassetid://17382040552",
-	Invite = "https://discord.gg/redz-hub",
+	Invite = "https://discord.gg/Mkj6W5Rz8E",
 	Members = 470000, -- Optional
 	Online = 20000, -- Optional
 })
