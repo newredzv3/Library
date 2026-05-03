@@ -283,3 +283,148 @@ Tab:AddToggle({
   end
 })
 ```
+
+### example of use 
+```lua
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
+
+local Window = Library:MakeWindow({
+  Title = "Redz Hub : Example",
+  SubTitle = "Wand UI Demo",
+  ScriptFolder = "wand-ui"
+})
+
+local Minimizer = Window:NewMinimizer({
+  KeyCode = Enum.KeyCode.LeftControl
+})
+
+local MobileButton = Minimizer:CreateMobileMinimizer({
+    Image = "rbxassetid://15298567397",
+    Size = UDim2.new(0,35,0,35),
+    Corner = { CornerRadius = UDim.new(0,6) },
+})
+
+local MainTab = Window:MakeTab({
+  Title = "Main",
+  Icon = "Home"
+})
+
+local ConfigTab = Window:MakeTab({
+  Title = "Config",
+  Icon = "Settings"
+})
+
+MainTab:AddSection("Button")
+MainTab:AddButton({
+  Name = "Test Button",
+  Callback = function()
+    Window:Notify({
+      Title = "Clicked",
+      Content = "You pressed the button",
+      Duration = 3
+    })
+  end
+})
+
+MainTab:AddSection("Toggle")
+MainTab:AddToggle({
+  Name = "Auto Farm",
+  Default = false,
+  Flag = "auto_farm",
+  Callback = function(v)
+    Window:Notify({
+      Title = "Toggle",
+      Content = tostring(v),
+      Duration = 3
+    })
+  end
+})
+
+MainTab:AddSection("Slider")
+MainTab:AddSlider({
+  Name = "Speed",
+  Min = 0,
+  Max = 100,
+  Increment = 5,
+  Default = 50,
+  Callback = function(v)
+    print(v)
+  end
+})
+
+MainTab:AddSection("Dropdown")
+MainTab:AddDropdown({
+  Name = "Select Fruit",
+  Options = {"Light","Dough","Leopard"},
+  Default = "Light",
+  Callback = function(v)
+    print(v)
+  end
+})
+
+MainTab:AddSection("Dropdown Multi")
+MainTab:AddDropdown({
+  Name = "Multi Select",
+  MultiSelect = true,
+  Options = {"A","B","C"},
+  Default = {"A"},
+  Callback = function(v)
+    print(v)
+  end
+})
+
+MainTab:AddSection("Textbox")
+MainTab:AddTextBox({
+  Name = "Enter Text",
+  Placeholder = "type...",
+  ClearOnFocus = true,
+  Callback = function(v)
+    print(v)
+  end
+})
+
+MainTab:AddSection("Paragraph")
+MainTab:AddParagraph("Info","Line 1\nLine 2")
+
+MainTab:AddSection("Discord")
+MainTab:AddDiscordInvite({
+  Title = "Redz Hub",
+  Description = "Community",
+  Banner = "rbxassetid://17382040552",
+  Logo = "rbxassetid://17382040552",
+  Invite = "https://discord.gg/redz-hub"
+})
+
+ConfigTab:AddSection("UI Scale")
+ConfigTab:AddSlider({
+  Name = "Scale",
+  Min = 0.6,
+  Max = 1.6,
+  Increment = 0.1,
+  Default = 1,
+  Callback = function(v)
+    Library:SetUIScale(v)
+  end
+})
+
+ConfigTab:AddSection("Theme")
+ConfigTab:AddDropdown({
+  Name = "Theme",
+  Options = Library:GetThemes(),
+  Default = Library:GetTheme().Name,
+  Callback = function(v)
+    Library:SetTheme(v)
+  end
+})
+
+ConfigTab:AddSection("Flags")
+local val = Window:GetFlag("auto_farm") or false
+ConfigTab:AddToggle({
+  Name = "Auto Farm Sync",
+  Default = val,
+  Callback = function(v)
+    Window:SetFlag("auto_farm", v)
+  end
+})
+
+Window:SelectTab(1)
