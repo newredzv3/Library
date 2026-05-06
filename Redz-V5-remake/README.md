@@ -21,7 +21,7 @@ local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newre
 ```lua
 local Window = Library:MakeWindow({
   Title = "Nice Hub : Cool Game",
-  SubTitle = "by plock4444",
+  SubTitle = "by real_redz",
   ScriptFolder = "redz-library-V5"
 })
 ```
@@ -422,7 +422,7 @@ ConfigTab:AddSection("Flags")
 local val = Window:GetFlag("auto_farm") or false
 ConfigTab:AddToggle({
   Name = "Auto Farm Sync",
-  Default = val,
+  Default = false,
   Callback = function(v)
     Window:SetFlag("auto_farm", v)
   end
