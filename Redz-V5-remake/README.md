@@ -367,7 +367,7 @@ MainTab:AddSection("Dropdown Multi")
 MainTab:AddDropdown({
   Name = "Multi Select",
   MultiSelect = true,
-  Options = {"A","B","C"},
+  Options = {"A","B","C","D","E","F","G","H","I"},
   Default = {"A"},
   Callback = function(v)
     print(v)
@@ -427,5 +427,10 @@ ConfigTab:AddToggle({
     Window:SetFlag("auto_farm", v)
   end
 })
-
+Window:Notify({
+  Title = 'Script Loaded',
+  Content = 'redz hub loaded successfully! Press "LeftControl" to Minimize',
+  Image = 'rbxassetid://10734953451',
+  Duration = 5
+})
 Window:SelectTab(1)
