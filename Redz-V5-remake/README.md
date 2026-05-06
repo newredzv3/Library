@@ -430,7 +430,7 @@ ConfigTab:AddToggle({
 Window:Notify({
   Title = 'Script Loaded',
   Content = 'redz hub loaded successfully! Press "LeftControl" to Minimize',
-  Image = 'rbxassetid://10734953451',
+  Image = 'rbxassetid://112146984347920',
   Duration = 5
 })
 Window:SelectTab(1)
