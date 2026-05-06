@@ -290,7 +290,7 @@ Tab:AddToggle({
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
 
 local Window = Library:MakeWindow({
-  Title = "Redz Hub : Example",
+  Title = "redz hub : Blox Fruits",
   SubTitle = "Wand UI Demo",
   ScriptFolder = "wand-ui"
 })
