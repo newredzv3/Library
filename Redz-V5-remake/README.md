@@ -5,7 +5,7 @@
 - It uses the same UI style as the original, with some improvements and refinements.
 - The reason the UI is named **Wand** is that it should be the name of the next generation of **redz Hub** UIs
 
-- 🔹 Made by **real_redz**  
+- 🔹 Made by **real_redz** and updated by **plock4444** 
 - 🔹 Designed mainly for use in **Redz Hub** scripts  
 - 🔹 Open-Source, Lightweight, and Optimized  
 
@@ -290,7 +290,7 @@ Tab:AddToggle({
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
 
 local Window = Library:MakeWindow({
-  Title = "redz hub : Blox Fruits",
+  Title = "redz hub : Game",
   SubTitle = "Wand UI Demo",
   ScriptFolder = "wand-ui"
 })
