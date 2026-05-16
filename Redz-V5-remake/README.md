@@ -1,27 +1,20 @@
-✨ Wand UI (Redz Library V5 Remake)
+# ✨ Wand UI (Redz Library V5 Remake)
 
-📌 About
+## 📌 About
+- **Wand UI** is a rebuilt and optimized version of **Redz Library V5**.
+- It uses the same UI style as the original, with improvements and refinements.
+- The name **Wand** represents the next generation of **Redz Hub** UIs.
 
-Wand UI is a rebuilt and optimized version of Redz Library V5.
-
-It uses the same UI style as the original, with some improvements and refinements.
-
-The reason the UI is named Wand is that it should be the name of the next generation of redz Hub UIs
-
-🔹 Made by real_redz and updated by plock4444
-
-🔹 Designed mainly for use in Redz Hub scripts
-
-🔹 Open-Source, Lightweight, and Optimized
-
-
+- 🔹 Made by **real_redz** and updated by **plock4444**
+- 🔹 Designed mainly for use in **Redz Hub** scripts
+- 🔹 Open-source, lightweight, and optimized
 
 ---
 
-🚀 Getting Started
+## 🚀 Getting Started
+To load **Wand UI**, simply run:
 
-To load Wand UI, simply run:
-
+```lua
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
 
 Creating a Window
@@ -32,9 +25,14 @@ local Window = Library:MakeWindow({
   ScriptFolder = "redz-library-V5"
 })
 
+
+---
+
+📦 Core Structure
+
 NewMinimizer: (self: Window, Config: { KeyCode: KeyCode }) -> Minimizer
 
-IsMinimied: boolean
+IsMinimized: boolean
 
 Cancel: (self: Minimizer) -> (nil)
 
@@ -54,7 +52,7 @@ Icon: string
 Select: (self: Tab) -> (nil)
 
 
-Notify: (self: Window, Configs: { Title: string, Content: string, Duration: number?, Image: string? } ) -> Notification
+Notify: (self: Window, Configs: { Title: string, Content: string, Duration: number?, Image: string? }) -> Notification
 
 Close: (self: Notification)
 
@@ -66,7 +64,7 @@ NewNotifyGroup: (self: Window, Configs: { Title: string?, Content: string?, Dura
 Notify: (self: Window, Configs: { Title: string?, Content: string?, Duration: number?, Image: string? }) -> Notification
 
 
-Dialog: (self: Window, Configs: { Title: string, Content: string, Options: { { Name: string, Callback: function? } }) -> Dialog
+Dialog: (self: Window, Configs: { Title: string, Content: string, Options: { { Name: string, Callback: function? } } }) -> Dialog
 
 Close: (self: Dialog) -> (nil)
 
@@ -113,32 +111,35 @@ GetFlag: (self: Window, Flag: string, Value: any?) -> (nil)
 SetFlag: (self: Window, Flag: string) -> any
 
 
-Minimizer
+
+---
+
+🧰 Minimizer
 
 local Minimizer = Window:NewMinimizer({
   KeyCode = Enum.KeyCode.LeftControl
 })
 
 local MobileButton = Minimizer:CreateMobileMinimizer({
-    Image = "rbxassetid://15298567397",
-    Size = UDim2.new(0,35,0,35),
-    Corner = { CornerRadius = UDim.new(0,6) },
+  Image = "rbxassetid://15298567397",
+  Size = UDim2.new(0,35,0,35),
+  Corner = { CornerRadius = UDim.new(0,6) },
 })
 
-Creating a Tab
 
-Normal
+---
+
+🪟 Creating Tabs
 
 local Tab = Window:MakeTab({
   Title = "Cool Tab",
   Icon = "Home"
 })
 
-Compact
 
-local Tab = Window:MakeTab({ "Cool Tab", "Home" })
+---
 
-Creating a Dialog
+🧾 Dialog
 
 Window:Dialog({
   Title = "Hello!",
@@ -156,7 +157,10 @@ Window:Dialog({
   })
 })
 
-Creating a Notification
+
+---
+
+🔔 Notification
 
 Window:Notify({
   Title = "Notification",
@@ -165,7 +169,10 @@ Window:Notify({
   Duration = 5
 })
 
-Options API
+
+---
+
+⚙️ Options API
 
 Builder: { (Title|Name): string, (Desc|Description): string? }
 
@@ -197,23 +204,7 @@ Kind: string
 
 AddToggle: (self: Tab, Configs: Builder & { Default: boolean?, Callback: function?, Flag: string? }) -> Toggle
 
-Value: boolean
-
-SetValue: (self: Toggle, Value: boolean) -> (nil)
-
-
 AddSlider: (self: Tab, Configs: Builder & { Max: number, Min: number, Increment: number?, Callback: function?, Flag: string? }) -> Slider
-
-Value: number
-
-Min: number
-
-Max: number
-
-Increment: number
-
-SetValue: (self: Slider, Value: number) -> Slider
-
 
 AddButton: (self: Tab, Configs: Builder & { Callback: function?, Debounce: number? }) -> Button
 
@@ -226,125 +217,10 @@ AddTextBox: (self: Tab, Configs: Builder & { Placeholder: string?, ClearOnFocus:
 AddDiscordInvite: (self: Tab, Configs: Builder & { Banner: Image | Color3, Image: string, Invite: string, Members: number?, Online: number? }) -> DiscordInvite
 
 
-Creating Options
 
-Section
+---
 
-Tab:AddSection("Section")
-
-Toggle
-
-Tab:AddToggle({
-  Name = "Toggle",
-  Default = false,
-  Callback = function(Value)
-    
-  end
-})
-
-Button
-
-Tab:AddButton({
-  Name = "My Button",
-  Debounce = 0.5,
-  Callback = function()
-    
-  end
-})
-
-Slider
-
-Tab:AddSlider({
-  Name = "Cool Title",
-  Min = -5,
-  Max = 5,
-  Increment = 0.25,
-  Default = 0,
-  Callback = function(Value)
-    
-  end
-})
-
-Dropdown
-
-Tab:AddDropdown({
-  Name = "Dropdown",
-  Options = {"one", "two", "three", "four", "five"},
-  Default = "one",
-  Callback = function(Value)
-    
-  end
-})
-
-Tab:AddDropdown({
-  Name = "Dropdown",
-  MultiSelect = true,
-  Options = {"one", "two", "three", "four", "five"},
-  Default = {"one", "four"},
-  Callback = function(Value)
-    
-  end
-})
-
-TextBox
-
-Tab:AddTextBox({
-  Name = "My TextBox",
-  Default = "text",
-  Placeholder = "input text...",
-  ClearOnFocus = true,
-  Callback = function(Value)
-    
-  end
-})
-
-Paragraph
-
-Tab:AddParagraph("Paragraph", "This is a Paragraph\nSecond Line")
-
-Discord Invite
-
-MainTab:AddDiscordInvite({
-  Title = "redz Hub | Community",
-  Description = "Your Description",
-  Banner = "rbxassetid://17382040552",
-  Logo = "rbxassetid://17382040552",
-  Invite = "https://discord.gg/Mkj6W5Rz8E",
-  Members = 470000,
-  Online = 20000
-})
-
-UI Scale
-
-Min Scale: 0.6
-
-Max Scale: 1.6
-
-Default Scale: 1.0
-
-
-Library:SetUIScale(1.0)
-
-print(`UI Max Scale is: {Library:GetMaxScale()} and the minimum is: {Library:GetMinScale()}`)
-
-Flags
-
-Tab:AddToggle({
-  Name = "Cool Toggle",
-  Flag = "toggle_flag"
-})
-
-local ToggleValue = Window:GetFlag("toggle_flag") or false
-
-Tab:AddToggle({
-  Name = "Cool Toggle",
-  Default = ToggleValue,
-  Callback = function(Value)
-    Window:SetFlag("toggle_flag", Value)
-  end
-})
-
-Example of Use
+🧪 Example of Use
 
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
 
@@ -359,9 +235,9 @@ local Minimizer = Window:NewMinimizer({
 })
 
 local MobileButton = Minimizer:CreateMobileMinimizer({
-    Image = "rbxassetid://15298567397",
-    Size = UDim2.new(0,35,0,35),
-    Corner = { CornerRadius = UDim.new(0,6) },
+  Image = "rbxassetid://15298567397",
+  Size = UDim2.new(0,35,0,35),
+  Corner = { CornerRadius = UDim.new(0,6) },
 })
 
 local MainTab = Window:MakeTab({
@@ -419,7 +295,7 @@ MainTab:AddDropdown({
   Default = "Light",
   Callback = function(v)
     print(v)
-  end
+  end)
 })
 
 MainTab:AddSection("Dropdown Multi")
@@ -440,7 +316,7 @@ MainTab:AddTextBox({
   ClearOnFocus = true,
   Callback = function(v)
     print(v)
-  end
+  end)
 })
 
 MainTab:AddSection("Paragraph")
@@ -484,13 +360,13 @@ ConfigTab:AddToggle({
   Default = false,
   Callback = function(v)
     Window:SetFlag("auto_farm", v)
-  end
+  end)
 })
 
 Window:Notify({
-  Title = 'Script Loaded',
-  Content = 'redz hub loaded successfully! Press "LeftControl" to Minimize',
-  Image = 'rbxassetid://112146984347920',
+  Title = "Script Loaded",
+  Content = "redz hub loaded successfully! Press LeftControl to Minimize",
+  Image = "rbxassetid://112146984347920",
   Duration = 5
 })
 
