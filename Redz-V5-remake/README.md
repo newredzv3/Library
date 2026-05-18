@@ -11,7 +11,7 @@
 
 ---
 
-## 🚀 Getting Starte
+## 🚀 Getting Started
 To load **Wand UI**, simply run:
 ```lua
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/Redz-V5-remake/main.luau"))()
