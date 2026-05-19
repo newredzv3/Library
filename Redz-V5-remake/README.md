@@ -246,7 +246,7 @@ Tab:AddParagraph("Paragraph", "This is a Paragraph\nSecond Line")
 ```lua
 MainTab:AddDiscordInvite({
 	Title = "redz Hub | Community",
-	Description = "Your Description",
+	Description = "A community for redz Hub Users -- official scripts, updates, and suport in one place.",
 	Banner = "rbxassetid://17382040552", -- You can put an RGB Color: Color3.fromRGB(233, 37, 69)
 	Logo = "rbxassetid://17382040552",
 	Invite = "https://discord.gg/Mkj6W5Rz8E",
@@ -390,7 +390,7 @@ MainTab:AddParagraph("Info","Line 1\nLine 2")
 MainTab:AddSection("Discord")
 MainTab:AddDiscordInvite({
   Title = "redz hub : Community",
-  Description = "",
+  Description = "A community for redz Hub Users -- official scripts, updates, and suport in one place.",
   Banner = "rbxassetid://17382040552",
   Logo = "rbxassetid://17382040552",
   Invite = "https://discord.gg/Mkj6W5Rz8E"
