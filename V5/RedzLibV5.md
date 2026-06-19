@@ -1,7 +1,7 @@
 # Redz Lib V5
 ## Load the Library
 ```lua
-local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/V5/main/Source.lua"))()
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/newredzv3/Library/refs/heads/main/V5/Source.lua"))()
 ```
 ### Library's Functions
 ```lua
