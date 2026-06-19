@@ -100,7 +100,7 @@ end
 
 local s={
 Information={
-Version="v2.0.1",
+Version="v2.0.2",
 GitHubOwner="newredzv3"
 },
 Default={
